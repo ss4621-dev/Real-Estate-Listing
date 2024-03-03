@@ -39,11 +39,12 @@ export default function CreateListing() {
       const res = await fetch(`/api/listing/get/${listingId}`);
       const data = await res.json();
       if (data.success === false) {
-        setError(data.message);
+        console.log(data.message);
         return;
       }
       setFormData(data);
     };
+
     fetchListing();
   }, []);
 
@@ -86,7 +87,7 @@ export default function CreateListing() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ₹{progress}% done`);
+          console.log(`Upload is ${progress}% done`);
         },
         (error) => {
           reject(error);
@@ -162,7 +163,7 @@ export default function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/₹{data._id}`);
+      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -171,7 +172,7 @@ export default function CreateListing() {
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Edit a Listing
+        Update a Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
@@ -297,7 +298,7 @@ export default function CreateListing() {
               <div className="flex flex-col items-center">
                 <p>Regular price</p>
                 {formData.type === "rent" && (
-                  <span className="text-xs">(₹ / month)</span>
+                  <span className="text-xs">($ / month)</span>
                 )}
               </div>
             </div>
@@ -315,9 +316,8 @@ export default function CreateListing() {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted price</p>
-
                   {formData.type === "rent" && (
-                    <span className="text-xs">(₹ / month)</span>
+                    <span className="text-xs">($ / month)</span>
                   )}
                 </div>
               </div>
@@ -376,7 +376,7 @@ export default function CreateListing() {
             disabled={loading || uploading}
             className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
-            {loading ? "Creating..." : "Update listing"}
+            {loading ? "Updating..." : "Update listing"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>
