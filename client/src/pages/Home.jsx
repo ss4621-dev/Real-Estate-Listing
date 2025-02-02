@@ -141,6 +141,12 @@ export default function Home() {
               >
                 Show more places for sale
               </Link>
+              <Link
+                className="text-sm text-blue-800 hover:underline"
+                to="https://amzn.to/3EuT1vO"
+              >
+                Lenovo LOQ 
+              </Link>
             </div>
             <div className="flex flex-wrap gap-4">
               {saleListings.map((listing) => (
